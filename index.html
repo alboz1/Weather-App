@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Weather App</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css">
+        <link rel="stylesheet" href="css/main.css">
+    </head>
+
+    <body>
+        <div class="top-border"></div>
+        <div class="container">
+            <section id="search" class="wrapper">
+                <div class="flex-container">
+                    <div class="column col-1">
+                        <div class="search-wrapper">
+                            <input type="text" id="search-field">
+                            <span class="search-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="7.5"/><line x1="21" y1="21" x2="15.8" y2="15.8"/></svg>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="weather" class="wrapper">
+                <div class="flex-container">
+                    <div class="column col-2">
+                        <div class="weather-info">
+                            <h3 class="city-name">KOPLIK</h3>
+                            <span class="deg">30&deg;C</span>
+                        </div>
+                    </div>
+
+                    <div class="column col-2">
+                        <div class="weather-icon">
+                            <i class="wi wi-night-sleet"></i>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="week-weather" class="wrapper">
+                <div class="flex-container">
+                    <div class="column col-1">
+                        <div class="week-weather-info">
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <script src="js/index.js"></script>
+    </body>
+</html>

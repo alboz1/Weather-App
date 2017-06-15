@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css?family=Cabin+Condensed:400,700");
+.container {
+  width: 1000px;
+  max-width: 100%;
+  margin: 0 auto; }
+  .container .flex-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
+    @media (max-width: 560px) {
+      .container .flex-container {
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap; } }
+    .container .flex-container .column {
+      margin: .5rem;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box; }
+      .container .flex-container .column.col-1 {
+        -ms-flex-preferred-size: 100%;
+            flex-basis: 100%; }
+      .container .flex-container .column.col-2 {
+        -ms-flex-preferred-size: 50%;
+            flex-basis: 50%; }
+        @media (max-width: 560px) {
+          .container .flex-container .column.col-2 {
+            -ms-flex-preferred-size: 100%;
+                flex-basis: 100%; } }
+
+body {
+  font-family: 'Cabin Condensed', sans-serif; }
+
+.top-border {
+  height: 5px;
+  background: #8653BE; }
+
+.wrapper {
+  padding: 3rem 0; }
+
+section#weather {
+  text-align: center; }
+
+.week-weather-info {
+  height: 140px;
+  background: #8653BE; }
