@@ -2,7 +2,7 @@ const app = {
     getCurrentLocation() {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(position => {
-                this.getWeatherData(position.coords.latitude, position.coords.longitude);
+                this.currentWeatherData(position.coords.latitude, position.coords.longitude);
                 this.getWeatherForecast(position.coords.latitude, position.coords.longitude);
             });
         } else {
@@ -10,10 +10,16 @@ const app = {
         }
     },
 
-    getWeatherData(lat, long) {
+    currentWeatherData(lat, long) {
         return axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&APPID=0d98ce1dc6f1122e38b37f94c7fd3424`)
         .then(response => {
             console.log(response);
+            view.showCurrentWeather({
+                city: response.data.name,
+                deg: response.data.main.temp,
+                icon: response.data.weather[0].id,
+                info: response.data.weather[0].main
+            });
         })
         .catch(error => {
             console.log(error);
@@ -24,10 +30,37 @@ const app = {
         return axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&units=metric&APPID=0d98ce1dc6f1122e38b37f94c7fd3424`)
         .then(response => {
             console.log(response);
+            view.showForecast({
+                day: response.data.list[0].dt_txt
+            });
         })
         .catch(error => {
             console.log(error);
         })
+    },
+
+    formatDate(date) {
+        return new Date(date).getDay();
+    }
+};
+
+const view = {
+    showCurrentWeather(options) {
+        const city = document.querySelector('.city-name');
+        const deg = document.querySelector('.deg');
+        const icon = document.querySelector('.weather-icon i');
+        const description = document.querySelector('.weather-info-text');
+
+        city.textContent = options.city;
+        deg.innerHTML = `${options.deg}&deg;C`;
+        icon.className = `wi wi-owm-${options.icon}`;
+        description.textContent = options.info;
+    },
+
+    showForecast(options) {
+        const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        
+        console.log(weekDays[app.formatDate(options.day)]);
     }
 };
 
