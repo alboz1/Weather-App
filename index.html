@@ -16,7 +16,7 @@
                 <div class="flex-container">
                     <div class="column col-1">
                         <div class="search-wrapper">
-                            <input type="text" id="search-field">
+                            <input type="text" placeholder="Search city" id="search-field">
                             <span class="search-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="7.5"/><line x1="21" y1="21" x2="15.8" y2="15.8"/></svg>
                             </span>
@@ -37,6 +37,7 @@
                     <div class="column col-2">
                         <div class="weather-icon">
                             <i class="wi wi-night-sleet"></i>
+                            <p class="weather-info-text">Clear</p>
                         </div>
                     </div>
                 </div>
@@ -51,7 +52,8 @@
                 </div>
             </section>
         </div>
-
+        
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="js/index.js"></script>
     </body>
 </html>
