@@ -84,7 +84,7 @@ section#weather
             +mobile
                 margin: 0
     .weather-icon
-        margin-top: 3rem
+        margin-top: 2.5rem
         .weather-info-text
             font-size: .5em
             color: rgba(white, .7)
@@ -120,8 +120,12 @@ section#week-weather
                 color: $main
                 .deg
                     font-weight: 400
-                    font-size: .8em
+                    font-size: .9em
                     color: $main-text
             i
                 font-size: 1.5em
                 color: $secondary-text
+                +mobile
+                    font-size: 1.8em
+            p
+                color: $main

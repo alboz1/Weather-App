@@ -1,19 +1,37 @@
 const app = {
-    getCurrentLocation() {
+    init() {
+        this.getCurrentLocationWeather();
+        view.eventListeners();
+    },
+
+    getCurrentLocationWeather() {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(position => {
-                this.currentWeatherData(position.coords.latitude, position.coords.longitude);
-                this.getWeatherForecast(position.coords.latitude, position.coords.longitude);
+                this.currentWeatherData('http://api.openweathermap.org/data/2.5/weather?',{
+                    lat: position.coords.latitude,
+                    long: position.coords.longitude
+                });
+                this.getWeatherForecast('http://api.openweathermap.org/data/2.5/forecast/daily?', {
+                    lat: position.coords.latitude,
+                    long: position.coords.longitude
+                });
             });
         } else {
             console.log('Your browser does not support geolocation');
         }
     },
 
-    currentWeatherData(lat, long) {
-        return axios.get(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&APPID=0d98ce1dc6f1122e38b37f94c7fd3424`)
+    currentWeatherData(url, props) {
+        return axios.get(url, {
+            params: {
+                APPID: '0d98ce1dc6f1122e38b37f94c7fd3424',
+                lat: props.lat,
+                lon: props.long,
+                units: 'metric',
+                q: props.name
+            }
+        })
         .then(response => {
-            console.log(response);
             view.showCurrentWeather({
                 city: response.data.name,
                 deg: response.data.main.temp,
@@ -26,22 +44,24 @@ const app = {
         });
     },
 
-    getWeatherForecast(lat, long) {
-        return axios.get(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${long}&units=metric&APPID=0d98ce1dc6f1122e38b37f94c7fd3424`)
+    getWeatherForecast(url, props) {
+        return axios.get(url, {
+            params: {
+                APPID: '0d98ce1dc6f1122e38b37f94c7fd3424',
+                lat: props.lat,
+                lon: props.long,
+                units: 'metric',
+                q: props.name
+            }
+        })
         .then(response => {
-            console.log(response);
             view.showForecast({
-                day: response.data.list[0].dt_txt,
-                forecast: response.data.list
+                forecasts: response.data.list
             });
         })
         .catch(error => {
             console.log(error);
-        })
-    },
-
-    formatDate(date) {
-        return new Date(date).getDay();
+        });
     }
 };
 
@@ -53,18 +73,45 @@ const view = {
         const description = document.querySelector('.weather-info-text');
 
         city.textContent = options.city;
-        deg.innerHTML = `${options.deg}&deg;C`;
+        deg.innerHTML = `${Math.round(options.deg)}&deg;C`;
         icon.className = `wi wi-owm-${options.icon}`;
         description.textContent = options.info;
     },
 
     showForecast(options) {
         const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-        const curDate = new Date().getDate();
-        const forecasts = options.forecast.filter(day => new Date(day.dt_txt).getDate() !== curDate);
-        console.log(forecasts);
-        console.log(weekDays[app.formatDate(options.day)]);
+        const forecastWrapper = document.querySelector('.week-weather-info');
+        let day = new Date().getDay();
+        forecastWrapper.innerHTML = '';
+        day = 0;
+        options.forecasts.shift();
+        options.forecasts.forEach(forecast => {
+            day++;
+            const output = `
+            <div class="day-wrapper">
+                <h3 class="week-day">${weekDays[day]} <span class="deg">${Math.round(forecast.temp.day)}&deg;C</span></h3>
+                <i class="wi wi-owm-${forecast.weather[0].id}"></i>
+                <p>${forecast.weather[0].main}</p>
+            </div>`;
+            forecastWrapper.innerHTML += output;
+        });
+    },
+
+    eventListeners() {
+        const form = document.querySelector('#search-form');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const cityName = document.querySelector('#search-field').value;
+            if (cityName === '') return;
+            app.currentWeatherData('http://api.openweathermap.org/data/2.5/weather?', {
+                name: cityName
+            });
+            app.getWeatherForecast('http://api.openweathermap.org/data/2.5/forecast/daily?', {
+                name: cityName
+            });
+        });
     }
 };
-
-app.getCurrentLocation();
+app.init();

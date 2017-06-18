@@ -122,7 +122,7 @@ section#weather {
       section#weather .weather-info .deg {
         margin: 0; } }
   section#weather .weather-icon {
-    margin-top: 3rem; }
+    margin-top: 2.5rem; }
     section#weather .weather-icon .weather-info-text {
       font-size: .5em;
       color: rgba(255, 255, 255, 0.7); }
@@ -172,8 +172,13 @@ section#week-weather {
         color: #8653BE; }
         section#week-weather .week-weather-info .day-wrapper .week-day .deg {
           font-weight: 400;
-          font-size: .8em;
+          font-size: .9em;
           color: #545556; }
       section#week-weather .week-weather-info .day-wrapper i {
         font-size: 1.5em;
         color: #1b1b1c; }
+        @media (max-width: 560px) {
+          section#week-weather .week-weather-info .day-wrapper i {
+            font-size: 1.8em; } }
+      section#week-weather .week-weather-info .day-wrapper p {
+        color: #8653BE; }
