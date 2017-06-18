@@ -8,8 +8,14 @@ $main-text: #545556
 $secondary-text: #1b1b1c
 $bg: #e6e3ea
 
+html
+    height: 100%
 body
-  font-family: 'Cabin Condensed', sans-serif
+    height: 100%
+    font-family: 'Cabin Condensed', sans-serif
+    background: linear-gradient(180deg, #413890, #A673B6)
+    background-attachment: fixed
+    background-repeat: no-repeat
 
 .top-border
     height: 3px
@@ -17,78 +23,105 @@ body
     
 .wrapper
     padding: 3rem 0
-
+    +mobile
+        padding: 2.5rem 0
 section#search
     width: 320px
+    max-width: 100%
+    +mobile
+        margin: 0 auto
     .search-wrapper
         position: relative
         input
             width: 100%
-            //padding: .5rem
             height: 36px
             text-indent: 10px
-            background: none
-            border: none
-            border-bottom: 2px solid darken($main, 10%)
-            color: $main-text
+            background: rgba(#fff, .2)
+            border: 1px solid rgba(#fff, .5)
+            border-radius: 2px
+            box-shadow: 0 1px 3px rgba(0,0,0,.2)
+            color: #fff
             outline: none
             transition: all 0.2s ease-in-out
             &:focus
-                border-bottom-color: lighten($main, 10%)
+                background: rgba(white, .3)
+            &:focus::placeholder
+                color: white
             &::placeholder
-                color: $grey
+                color: rgba(white, .7)
         .search-icon
             position: absolute
             top: 50%
             right: 0
             margin-top: -12px
-            background: #fff
+            background: transparent
+            border-radius: 0 2px 2px 0
             border: none
             z-index: 1
             cursor: pointer
+            outline: none
             svg
-                stroke: $grey
+                stroke: rgba(white, .7)
                 transition: all 0.2s ease-in-out
             &:hover svg
-                stroke: darken($grey, 35%)
+                stroke: white
 
 section#weather
     text-align: center
-    color: $secondary-text
+    color: white
+    font-size: 5em
+    +mobile
+        font-size: 3.5em
+    @media (max-width: 760px)
+        font-size: 4em
     .weather-info
-        font-size: 2em
         .city-name
             margin: 1.5rem 0
         .deg
-            margin-left: 3rem
+            margin-left: 5rem
+            font-size: .8em
+            color: rgba(white, .7)
+            +mobile
+                margin: 0
     .weather-icon
-        font-size: 5em
+        margin-top: 3rem
         .weather-info-text
-            font-size: .3em
-
+            font-size: .5em
+            color: rgba(white, .7)
 section#week-weather
-    color: #fff
+    color: $secondary-text
+    padding-bottom: 0
     .week-weather-info
         display: flex
         justify-content: center
         align-items: center
         flex-wrap: wrap
         padding: 1.6rem 0
-        //background: $main
-        background-color: $main
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.3'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")
-        box-shadow: 0 3px 5px rgba(0,0,0,.4)
-        +mobile
-            flex-direction: column
-            padding: 1rem 0
+        border-radius: 2px
+        background: white
+        box-shadow: 0 1px 3px rgba(0,0,0,.2)
         .day-wrapper
+            border-left: 1px solid $bg
             text-align: center
             flex: 1 0 auto
+            &:first-child
+                border: none
+            +mobile
+                flex: 0 0 100%
+                border: none
+                border-bottom: 1px solid $bg
+                &:first-child
+                    border-bottom: 1px solid $bg
+                &:last-child
+                    border: none
             .week-day
                 font-size: 1.1em
                 font-weight: 700
+                color: $main
                 .deg
                     font-weight: 400
                     font-size: .8em
+                    color: $main-text
             i
                 font-size: 1.5em
+                color: $secondary-text

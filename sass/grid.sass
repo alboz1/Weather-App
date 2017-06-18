@@ -9,12 +9,12 @@
     margin: 0 auto
     .flex-container
         display: flex
-        align-items: center
         +mobile
             flex-wrap: wrap
         .column
             margin: .5rem
             box-sizing: border-box
+            flex-shrink: 1
             &.col-1
                 flex-basis: 100%
             &.col-2
