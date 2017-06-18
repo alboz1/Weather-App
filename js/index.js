@@ -31,7 +31,8 @@ const app = {
         .then(response => {
             console.log(response);
             view.showForecast({
-                day: response.data.list[0].dt_txt
+                day: response.data.list[0].dt_txt,
+                forecast: response.data.list
             });
         })
         .catch(error => {
@@ -59,7 +60,9 @@ const view = {
 
     showForecast(options) {
         const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-        
+        const curDate = new Date().getDate();
+        const forecasts = options.forecast.filter(day => new Date(day.dt_txt).getDate() !== curDate);
+        console.log(forecasts);
         console.log(weekDays[app.formatDate(options.day)]);
     }
 };
