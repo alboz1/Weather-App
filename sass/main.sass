@@ -3,10 +3,9 @@
 
 //COLORS
 $main: #8653BE
-$grey: #ADA9A9
 $main-text: #545556
 $secondary-text: #1b1b1c
-$bg: #e6e3ea
+$light-grey: #e0dee2
 
 html
     height: 100%
@@ -65,9 +64,7 @@ section#search
                 transition: all 0.2s ease-in-out
             &:hover svg
                 stroke: white
-    .country-info
-        color: white
-
+                
 section#weather
     text-align: center
     color: white
@@ -103,7 +100,7 @@ section#week-weather
         background: white
         box-shadow: 0 1px 3px rgba(0,0,0,.2)
         .day-wrapper
-            border-left: 1px solid $bg
+            border-left: 1px solid $light-grey
             text-align: center
             flex: 1 0 auto
             &:first-child
@@ -111,9 +108,9 @@ section#week-weather
             +mobile
                 flex: 0 0 100%
                 border: none
-                border-bottom: 1px solid $bg
+                border-bottom: 1px solid $light-grey
                 &:first-child
-                    border-bottom: 1px solid $bg
+                    border-bottom: 1px solid $light-grey
                 &:last-child
                     border: none
             .week-day

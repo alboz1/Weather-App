@@ -108,9 +108,6 @@ section#search .search-wrapper {
     section#search .search-wrapper .search-icon:hover svg {
       stroke: white; }
 
-section#search .country-info {
-  color: white; }
-
 section#weather {
   text-align: center;
   color: white;
@@ -157,7 +154,7 @@ section#week-weather {
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2); }
     section#week-weather .week-weather-info .day-wrapper {
-      border-left: 1px solid #e6e3ea;
+      border-left: 1px solid #e0dee2;
       text-align: center;
       -webkit-box-flex: 1;
           -ms-flex: 1 0 auto;
@@ -170,9 +167,9 @@ section#week-weather {
               -ms-flex: 0 0 100%;
                   flex: 0 0 100%;
           border: none;
-          border-bottom: 1px solid #e6e3ea; }
+          border-bottom: 1px solid #e0dee2; }
           section#week-weather .week-weather-info .day-wrapper:first-child {
-            border-bottom: 1px solid #e6e3ea; }
+            border-bottom: 1px solid #e0dee2; }
           section#week-weather .week-weather-info .day-wrapper:last-child {
             border: none; } }
       section#week-weather .week-weather-info .day-wrapper .week-day {
