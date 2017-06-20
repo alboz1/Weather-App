@@ -11,7 +11,7 @@ const app = {
                     lat: position.coords.latitude,
                     long: position.coords.longitude
                 });
-                this.getWeatherForecast('http://api.openweathermap.org/data/2.5/forecast/daily?', {
+                this.getWeatherForecast('http://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
                     lat: position.coords.latitude,
                     long: position.coords.longitude
                 });
@@ -79,21 +79,22 @@ const view = {
     },
 
     showForecast(options) {
-        const weekDays = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const weekDays = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
         const forecastWrapper = document.querySelector('.week-weather-info');
-        let day = new Date().getDay();
+        let day = new Date().getDay() + 1;
+
         forecastWrapper.innerHTML = '';
-        day = 0;
         options.forecasts.shift();
+
         options.forecasts.forEach(forecast => {
-            day++;
             const output = `
             <div class="day-wrapper">
-                <h3 class="week-day">${weekDays[day]} <span class="deg">${Math.round(forecast.temp.day)}&deg;C</span></h3>
+                <h3 class="week-day">${weekDays[day - 1]} <span class="deg">${Math.round(forecast.temp.day)}&deg;C</span></h3>
                 <i class="wi wi-owm-${forecast.weather[0].id}"></i>
                 <p>${forecast.weather[0].main}</p>
             </div>`;
             forecastWrapper.innerHTML += output;
+            day++;
         });
     },
 
@@ -108,7 +109,7 @@ const view = {
             app.currentWeatherData('http://api.openweathermap.org/data/2.5/weather?', {
                 name: cityName
             });
-            app.getWeatherForecast('http://api.openweathermap.org/data/2.5/forecast/daily?', {
+            app.getWeatherForecast('http://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
                 name: cityName
             });
         });

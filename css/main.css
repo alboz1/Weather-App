@@ -6,13 +6,20 @@
   .container .flex-container {
     display: -webkit-box;
     display: -ms-flexbox;
-    display: flex; }
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center; }
     @media (max-width: 560px) {
       .container .flex-container {
         -ms-flex-wrap: wrap;
             flex-wrap: wrap; } }
+    .container .flex-container.justify-space-between {
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between; }
     .container .flex-container .column {
-      margin: .5rem;
+      margin: .6rem;
       -webkit-box-sizing: border-box;
               box-sizing: border-box;
       -ms-flex-negative: 1;
@@ -49,58 +56,60 @@ body {
     .wrapper {
       padding: 2.5rem 0; } }
 
-section#search {
-  width: 320px;
-  max-width: 100%; }
+section#search .search-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 320px; }
   @media (max-width: 560px) {
-    section#search {
+    section#search .search-wrapper {
       margin: 0 auto; } }
-  section#search .search-wrapper {
-    position: relative; }
-    section#search .search-wrapper input {
-      width: 100%;
-      height: 36px;
-      text-indent: 10px;
-      background: rgba(255, 255, 255, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      border-radius: 2px;
-      -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-              box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-      color: #fff;
-      outline: none;
+  section#search .search-wrapper input {
+    width: 100%;
+    height: 36px;
+    text-indent: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    outline: none;
+    -webkit-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out; }
+    section#search .search-wrapper input:focus {
+      background: rgba(255, 255, 255, 0.3); }
+    section#search .search-wrapper input:focus::-webkit-input-placeholder {
+      color: white; }
+    section#search .search-wrapper input:focus:-ms-input-placeholder {
+      color: white; }
+    section#search .search-wrapper input:focus::placeholder {
+      color: white; }
+    section#search .search-wrapper input::-webkit-input-placeholder {
+      color: rgba(255, 255, 255, 0.7); }
+    section#search .search-wrapper input:-ms-input-placeholder {
+      color: rgba(255, 255, 255, 0.7); }
+    section#search .search-wrapper input::placeholder {
+      color: rgba(255, 255, 255, 0.7); }
+  section#search .search-wrapper .search-icon {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -12px;
+    background: transparent;
+    border-radius: 0 2px 2px 0;
+    border: none;
+    z-index: 1;
+    cursor: pointer;
+    outline: none; }
+    section#search .search-wrapper .search-icon svg {
+      stroke: rgba(255, 255, 255, 0.7);
       -webkit-transition: all 0.2s ease-in-out;
       transition: all 0.2s ease-in-out; }
-      section#search .search-wrapper input:focus {
-        background: rgba(255, 255, 255, 0.3); }
-      section#search .search-wrapper input:focus::-webkit-input-placeholder {
-        color: white; }
-      section#search .search-wrapper input:focus:-ms-input-placeholder {
-        color: white; }
-      section#search .search-wrapper input:focus::placeholder {
-        color: white; }
-      section#search .search-wrapper input::-webkit-input-placeholder {
-        color: rgba(255, 255, 255, 0.7); }
-      section#search .search-wrapper input:-ms-input-placeholder {
-        color: rgba(255, 255, 255, 0.7); }
-      section#search .search-wrapper input::placeholder {
-        color: rgba(255, 255, 255, 0.7); }
-    section#search .search-wrapper .search-icon {
-      position: absolute;
-      top: 50%;
-      right: 0;
-      margin-top: -12px;
-      background: transparent;
-      border-radius: 0 2px 2px 0;
-      border: none;
-      z-index: 1;
-      cursor: pointer;
-      outline: none; }
-      section#search .search-wrapper .search-icon svg {
-        stroke: rgba(255, 255, 255, 0.7);
-        -webkit-transition: all 0.2s ease-in-out;
-        transition: all 0.2s ease-in-out; }
-      section#search .search-wrapper .search-icon:hover svg {
-        stroke: white; }
+    section#search .search-wrapper .search-icon:hover svg {
+      stroke: white; }
+
+section#search .country-info {
+  color: white; }
 
 section#weather {
   text-align: center;

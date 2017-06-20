@@ -9,8 +9,11 @@
     margin: 0 auto
     .flex-container
         display: flex
+        align-items: center
         +mobile
             flex-wrap: wrap
+        &.justify-space-between
+            justify-content: space-between
         .column
             margin: .6rem
             box-sizing: border-box
