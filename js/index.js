@@ -78,7 +78,7 @@ const app = {
         }
 
         if (hours >= 11 && hours < 16) {
-            return `wi wi-owm-${icon}`
+            return `wi wi-owm-${icon}`;
         }
 
         if (hours >= 16 && hours <= 23) {
@@ -128,7 +128,7 @@ const view = {
         const month = months[fullDate.getMonth()];
         const year = fullDate.getFullYear();
 
-        document.querySelector('.city-info').textContent = `${country}, ${day} ${month} ${date} ${year}`;
+        document.querySelector('.city-info').textContent = `${country ? country : ''} ${day} ${month} ${date} ${year}`;
     },
 
     eventListeners() {
