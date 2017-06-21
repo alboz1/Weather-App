@@ -15,10 +15,6 @@ body
     background: linear-gradient(180deg, #413890, #A673B6)
     background-attachment: fixed
     background-repeat: no-repeat
-
-.top-border
-    height: 3px
-    background: $main
     
 .wrapper
     padding: 3rem 0
@@ -64,7 +60,14 @@ section#search
                 transition: all 0.2s ease-in-out
             &:hover svg
                 stroke: white
-                
+    .city-info
+        color: rgba(white, .7)
+        font-size: 1.1em
+        font-weight: 400
+        text-align: right
+        +mobile
+            text-align: center
+
 section#weather
     text-align: center
     color: white
@@ -87,6 +90,8 @@ section#weather
         .weather-info-text
             font-size: .5em
             color: rgba(white, .7)
+            &:first-letter
+                text-transform: uppercase
 section#week-weather
     color: $secondary-text
     padding-bottom: 0

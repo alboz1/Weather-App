@@ -1,4 +1,6 @@
 const app = {
+    weekDays: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+
     init() {
         this.getCurrentLocationWeather();
         view.eventListeners();
@@ -36,8 +38,10 @@ const app = {
                 city: response.data.name,
                 deg: response.data.main.temp,
                 icon: response.data.weather[0].id,
-                info: response.data.weather[0].main
+                info: response.data.weather[0].description,
+                hours: response.data.dt
             });
+            view.countryInfo(response.data.dt, response.data.sys.country);
         })
         .catch(error => {
             console.log(error);
@@ -62,6 +66,24 @@ const app = {
         .catch(error => {
             console.log(error);
         });
+    },
+
+    nightDayIcons(icon, hours) {
+        if (hours >= 0 && hours < 5) {
+            return `wi wi-owm-night-${icon}`;
+        }
+
+        if (hours >= 5 && hours < 11) {
+            return `wi wi-owm-day${icon}`;
+        }
+
+        if (hours >= 11 && hours < 16) {
+            return `wi wi-owm-${icon}`
+        }
+
+        if (hours >= 16 && hours <= 23) {
+            return `wi wi-owm-night-${icon}`;
+        }
     }
 };
 
@@ -74,28 +96,39 @@ const view = {
 
         city.textContent = options.city;
         deg.innerHTML = `${Math.round(options.deg)}&deg;C`;
-        icon.className = `wi wi-owm-${options.icon}`;
+        icon.className = app.nightDayIcons(options.icon, new Date(options.hours * 1000).getHours());
         description.textContent = options.info;
     },
 
     showForecast(options) {
-        const weekDays = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
         const forecastWrapper = document.querySelector('.week-weather-info');
-        let day = new Date().getDay() + 1;
-
         forecastWrapper.innerHTML = '';
-        options.forecasts.shift();
 
+        options.forecasts.shift();
         options.forecasts.forEach(forecast => {
+            let day = new Date(forecast.dt * 1000).getDay();
+
             const output = `
             <div class="day-wrapper">
-                <h3 class="week-day">${weekDays[day - 1]} <span class="deg">${Math.round(forecast.temp.day)}&deg;C</span></h3>
+                <h3 class="week-day">${app.weekDays[day]} <span class="deg">${Math.round(forecast.temp.day)}&deg;C</span></h3>
                 <i class="wi wi-owm-${forecast.weather[0].id}"></i>
                 <p>${forecast.weather[0].main}</p>
             </div>`;
+
             forecastWrapper.innerHTML += output;
-            day++;
         });
+    },
+
+    countryInfo(info, country) {
+        const months = ['Jan','Feb','Mar','Apr','May' ,'June','July','Aug','Sept','Oct','Nov','Dec'];
+
+        const fullDate = new Date(info * 1000);
+        const date = fullDate.getDate();
+        const day = app.weekDays[fullDate.getDay()];
+        const month = months[fullDate.getMonth()];
+        const year = fullDate.getFullYear();
+
+        document.querySelector('.city-info').textContent = `${country}, ${day} ${month} ${date} ${year}`;
     },
 
     eventListeners() {
