@@ -9,11 +9,11 @@ const app = {
     getCurrentLocationWeather() {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(position => {
-                this.currentWeatherData('http://api.openweathermap.org/data/2.5/weather?',{
+                this.currentWeatherData('https://api.openweathermap.org/data/2.5/weather?',{
                     lat: position.coords.latitude,
                     long: position.coords.longitude
                 });
-                this.getWeatherForecast('http://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
+                this.getWeatherForecast('https://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
                     lat: position.coords.latitude,
                     long: position.coords.longitude
                 });
@@ -139,10 +139,10 @@ const view = {
 
             const cityName = document.querySelector('#search-field').value;
             if (cityName === '') return;
-            app.currentWeatherData('http://api.openweathermap.org/data/2.5/weather?', {
+            app.currentWeatherData('https://api.openweathermap.org/data/2.5/weather?', {
                 name: cityName
             });
-            app.getWeatherForecast('http://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
+            app.getWeatherForecast('https://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
                 name: cityName
             });
         });
