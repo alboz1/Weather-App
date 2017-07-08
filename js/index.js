@@ -9,11 +9,11 @@ const app = {
     getCurrentLocationWeather() {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(position => {
-                this.currentWeatherData('https://api.openweathermap.org/data/2.5/weather?',{
+                this.currentWeatherData('http://api.openweathermap.org/data/2.5/weather?',{
                     lat: position.coords.latitude,
                     long: position.coords.longitude
                 });
-                this.getWeatherForecast('https://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
+                this.getWeatherForecast('http://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
                     lat: position.coords.latitude,
                     long: position.coords.longitude
                 });
@@ -77,11 +77,11 @@ const app = {
             return `wi wi-owm-day${icon}`;
         }
 
-        if (hours >= 11 && hours < 16) {
+        if (hours >= 11 && hours < 18) {
             return `wi wi-owm-${icon}`;
         }
 
-        if (hours >= 16 && hours <= 23) {
+        if (hours >= 18 && hours <= 23) {
             return `wi wi-owm-night-${icon}`;
         }
     }
@@ -139,10 +139,10 @@ const view = {
 
             const cityName = document.querySelector('#search-field').value;
             if (cityName === '') return;
-            app.currentWeatherData('https://api.openweathermap.org/data/2.5/weather?', {
+            app.currentWeatherData('http://api.openweathermap.org/data/2.5/weather?', {
                 name: cityName
             });
-            app.getWeatherForecast('https://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
+            app.getWeatherForecast('http://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
                 name: cityName
             });
         });
