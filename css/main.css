@@ -39,6 +39,11 @@
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end; }
+  @media (max-width: 560px) {
+    .flex-container.flex-end {
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center; } }
 
 html {
   height: 100%; }
@@ -112,20 +117,18 @@ section#search .search-wrapper {
 section#search .city-info {
   color: rgba(255, 255, 255, 0.7);
   font-size: 1.1em;
-  font-weight: 400;
-  text-align: right; }
-  @media (max-width: 560px) {
-    section#search .city-info {
-      text-align: center; } }
+  font-weight: 400; }
 
 section#search .units-switch {
   width: 52px;
   height: 25px;
-  margin-left: .6rem;
+  margin-left: 1rem;
   padding: .2rem;
   border: 1px solid #e0dee2;
   border-radius: 50px;
   background: rgba(255, 255, 255, 0.2);
+  -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+          box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
   cursor: pointer; }
   section#search .units-switch .switch {
     width: 50%;
