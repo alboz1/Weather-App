@@ -35,6 +35,11 @@
             -ms-flex-preferred-size: 100%;
                 flex-basis: 100%; } }
 
+.flex-container.flex-end {
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end; }
+
 html {
   height: 100%; }
 
@@ -112,6 +117,33 @@ section#search .city-info {
   @media (max-width: 560px) {
     section#search .city-info {
       text-align: center; } }
+
+section#search .units-switch {
+  width: 52px;
+  height: 25px;
+  margin-left: .6rem;
+  padding: .2rem;
+  border: 1px solid #e0dee2;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer; }
+  section#search .units-switch .switch {
+    width: 50%;
+    background: #fff;
+    border: none;
+    border-radius: 50%;
+    color: #1b1b1c;
+    padding: 0;
+    font-size: .9em;
+    line-height: 25px;
+    outline: none;
+    -webkit-transition: -webkit-transform 0.2s ease-in-out;
+    transition: -webkit-transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out;
+    transition: transform 0.2s ease-in-out, -webkit-transform 0.2s ease-in-out; }
+    section#search .units-switch .switch.switched {
+      -webkit-transform: translateX(100%);
+              transform: translateX(100%); }
 
 section#weather {
   text-align: center;

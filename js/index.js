@@ -1,5 +1,7 @@
 const app = {
     weekDays: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+    celsius: true,
+    unit: 'metric',
 
     init() {
         this.getCurrentLocationWeather();
@@ -29,7 +31,7 @@ const app = {
                 APPID: '0d98ce1dc6f1122e38b37f94c7fd3424',
                 lat: props.lat,
                 lon: props.long,
-                units: 'metric',
+                units: this.unit,
                 q: props.name
             }
         })
@@ -54,7 +56,7 @@ const app = {
                 APPID: '0d98ce1dc6f1122e38b37f94c7fd3424',
                 lat: props.lat,
                 lon: props.long,
-                units: 'metric',
+                units: this.unit,
                 q: props.name
             }
         })
@@ -95,7 +97,7 @@ const view = {
         const description = document.querySelector('.weather-info-text');
 
         city.textContent = options.city;
-        deg.innerHTML = `${Math.round(options.deg)}&deg;C`;
+        deg.innerHTML = `${Math.round(options.deg)}${app.celsius ? '&deg;C' : '&deg;F'}`;
         icon.className = app.nightDayIcons(options.icon, new Date(options.hours * 1000).getHours());
         description.textContent = options.info;
     },
@@ -133,6 +135,7 @@ const view = {
 
     eventListeners() {
         const form = document.querySelector('#search-form');
+        const unitsSwitch = document.querySelector('.units-switch');
 
         form.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -145,6 +148,14 @@ const view = {
             app.getWeatherForecast('http://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
                 name: cityName
             });
+        });
+
+        unitsSwitch.addEventListener('click', function() {
+            const btn = this.querySelector('.switch');
+            btn.classList.toggle('switched');
+            app.celsius = !app.celsius;
+            app.unit = app.celsius ? 'metric' : 'imperial';
+            btn.innerHTML = app.celsius ? 'C&deg;' : 'F&deg;';
         });
     }
 };

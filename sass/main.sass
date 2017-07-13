@@ -67,6 +67,29 @@ section#search
         text-align: right
         +mobile
             text-align: center
+    
+    .units-switch
+        width: 52px
+        height: 25px
+        margin-left: .6rem
+        padding: .2rem
+        border: 1px solid $light-grey
+        border-radius: 50px
+        background: rgba(#fff, .2)
+        cursor: pointer
+        .switch
+            width: 50%
+            background: #fff
+            border: none
+            border-radius: 50%
+            color: $secondary-text
+            padding: 0
+            font-size: .9em
+            line-height: 25px
+            outline: none
+            transition: transform 0.2s ease-in-out
+            &.switched
+                transform: translateX(100%)
 
 section#weather
     text-align: center
@@ -92,6 +115,7 @@ section#weather
             color: rgba(white, .7)
             &:first-letter
                 text-transform: uppercase
+
 section#week-weather
     color: $secondary-text
     padding-bottom: 0
