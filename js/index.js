@@ -11,11 +11,11 @@ const app = {
     getCurrentLocationWeather() {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(position => {
-                this.currentWeatherData('http://api.openweathermap.org/data/2.5/weather?',{
+                this.currentWeatherData('https://api.openweathermap.org/data/2.5/weather?',{
                     lat: position.coords.latitude,
                     long: position.coords.longitude
                 });
-                this.getWeatherForecast('http://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
+                this.getWeatherForecast('https://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
                     lat: position.coords.latitude,
                     long: position.coords.longitude
                 });
