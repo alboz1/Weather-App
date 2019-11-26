@@ -86,13 +86,17 @@ section#search .search-wrapper {
       background: rgba(255, 255, 255, 0.3); }
     section#search .search-wrapper input:focus::-webkit-input-placeholder {
       color: white; }
-    section#search .search-wrapper input:focus:-ms-input-placeholder {
+    section#search .search-wrapper input:focus::-moz-placeholder {
+      color: white; }
+    section#search .search-wrapper input:focus::-ms-input-placeholder {
       color: white; }
     section#search .search-wrapper input:focus::placeholder {
       color: white; }
     section#search .search-wrapper input::-webkit-input-placeholder {
       color: rgba(255, 255, 255, 0.7); }
-    section#search .search-wrapper input:-ms-input-placeholder {
+    section#search .search-wrapper input::-moz-placeholder {
+      color: rgba(255, 255, 255, 0.7); }
+    section#search .search-wrapper input::-ms-input-placeholder {
       color: rgba(255, 255, 255, 0.7); }
     section#search .search-wrapper input::placeholder {
       color: rgba(255, 255, 255, 0.7); }
