@@ -1,4 +1,4 @@
-const cacheName = 'Weather-App-v4';
+const cacheName = 'Weather-App-v5';
 const filesToCache = [
   '/',
   '/index.html',
