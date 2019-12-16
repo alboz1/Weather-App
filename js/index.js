@@ -46,7 +46,11 @@ const app = {
             view.countryInfo(response.data.dt, response.data.sys.country);
         })
         .catch(error => {
-            console.log(error);
+            console.error(error);
+            const errorEl = document.querySelector('.error');
+            document.querySelector('.container').innerHTML = '';
+            errorEl.style.display = 'block';
+            document.querySelector('.container').appendChild(errorEl);
         });
     },
 

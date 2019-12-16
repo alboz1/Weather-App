@@ -10,11 +10,12 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-const cacheName = 'Weather-App';
+const cacheName = 'Weather-App-v11';
 const filesToCache = [
   '/',
   '/index.html',
-  '/css/main.css'
+  '/css/main.css',
+  'js/index.js'
 ];
 
 self.addEventListener('install', function(e) {
@@ -28,7 +29,14 @@ self.addEventListener('install', function(e) {
 });
 
 self.addEventListener('activate',  event => {
-  event.waitUntil(self.clients.claim());
+  event.waitUntil(
+      caches.keys().then(keys => {
+          return Promise.all(keys
+              .filter(key => key !== cacheName)
+              .map(key => caches.delete(key))
+          );
+      })
+  );
 });
 
 self.addEventListener('fetch', event => {
