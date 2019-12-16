@@ -1,9 +1,9 @@
-const cacheName = 'Weather-App-v11';
+const cacheName = 'Weather-App-v14';
 const filesToCache = [
   '/',
   '/index.html',
   '/css/main.css',
-  'js/index.js'
+  '/js/index.js'
 ];
 
 self.addEventListener('install', function(e) {
