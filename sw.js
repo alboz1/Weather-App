@@ -1,22 +1,34 @@
-const cacheName = 'Weather-App-v8';
+const cacheName = 'Weather-App-v4';
+const dynamicCacheName = 'site-dynamic-v4';
 const filesToCache = [
   'index.html',
   'css/main.css',
   'js/index.js'
 ];
 
-self.addEventListener('install', function(e) {
-  console.log('[ServiceWorker] Install');
-  e.waitUntil(
-    caches.open(cacheName).then(function(cache) {
-      console.log('[ServiceWorker] Caching app shell');
+// cache size limit function
+const limitCacheSize = (name, size) => {
+  caches.open(name).then(cache => {
+    cache.keys().then(keys => {
+      if(keys.length > size){
+        cache.delete(keys[0]).then(limitCacheSize(name, size));
+      }
+    });
+  });
+};
+
+self.addEventListener('install', evt => {
+  //console.log('service worker installed');
+  evt.waitUntil(
+    caches.open(cacheName).then((cache) => {
+      console.log('caching shell assets');
       return cache.addAll(filesToCache);
     })
   );
 });
 
-self.addEventListener('activate',  event => {
-  event.waitUntil(
+self.addEventListener('activate', evt => {
+  evt.waitUntil(
       caches.keys().then(keys => {
           return Promise.all(keys
               .filter(key => key !== cacheName)
@@ -26,10 +38,19 @@ self.addEventListener('activate',  event => {
   );
 });
 
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request, {ignoreSearch:true}).then(response => {
-      return response || fetch(event.request);
-    })
-  );
+self.addEventListener('fetch', evt => {
+  evt.respondWith(
+      caches.match(evt.request).then(cacheRes => {
+          return cacheRes || fetch(evt.request).then(fetchRes => {
+            return caches.open(dynamicCacheName).then(cache => {
+              cache.put(evt.request.url, fetchRes.clone());
+              // check cached items size
+              limitCacheSize(dynamicCacheName, 15);
+              return fetchRes;
+            })
+          });
+        }).catch((error) => {
+          console.log(error);
+        })
+    );
 });

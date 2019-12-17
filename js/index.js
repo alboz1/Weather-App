@@ -58,11 +58,16 @@ const app = {
             view.countryInfo(response.data.dt, response.data.sys.country);
         })
         .catch(error => {
-            console.error(error);
+            console.log(error.response);
             const errorEl = document.querySelector('.error');
-            document.querySelector('.container').innerHTML = '';
+            document.querySelector('main').style.display = 'none';
             errorEl.style.display = 'block';
-            document.querySelector('.container').appendChild(errorEl);
+            if (!error.response) {
+                errorEl.textContent = 'Please connect to internet';
+            }
+            if (error.response.status === 404) {
+                errorEl.textContent = 'Sorry, city not found';
+            }
         });
     },
 
@@ -107,6 +112,8 @@ const app = {
 
 const view = {
     showCurrentWeather(options) {
+        document.querySelector('main').style.display = 'block';
+        document.querySelector('.error').style.display = 'none';
         const city = document.querySelector('.city-name');
         const deg = document.querySelector('.deg');
         const icon = document.querySelector('.weather-icon i');
