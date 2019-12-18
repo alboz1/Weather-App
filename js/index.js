@@ -55,7 +55,8 @@ const app = {
                 info: response.data.weather[0].description,
                 hours: response.data.dt
             });
-            view.countryInfo(response.data.dt, response.data.sys.country);
+            console.log(response.data, response.data.sys.country);
+            view.countryInfo(response.data, response.data.sys.country);
         })
         .catch(error => {
             console.log(error.response);
@@ -64,6 +65,7 @@ const app = {
             errorEl.style.display = 'block';
             if (!error.response) {
                 errorEl.textContent = 'Please connect to internet';
+                console.log(error);
             }
             if (error.response.status === 404) {
                 errorEl.textContent = 'Sorry, city not found';
@@ -131,7 +133,7 @@ const view = {
 
         options.forecasts.shift();
         options.forecasts.forEach(forecast => {
-            let day = new Date(forecast.dt * 1000).getDay();
+            let day = new Date(forecast.dt * 1000).getUTCDay();
 
             const output = `
             <div class="day-wrapper">
@@ -146,12 +148,11 @@ const view = {
 
     countryInfo(info, country) {
         const months = ['Jan','Feb','Mar','Apr','May' ,'June','July','Aug','Sept','Oct','Nov','Dec'];
-
-        const fullDate = new Date(info * 1000);
-        const date = fullDate.getDate();
-        const day = app.weekDays[fullDate.getDay()];
-        const month = months[fullDate.getMonth()];
-        const year = fullDate.getFullYear();
+        const fullDate = new Date((info.dt + info.timezone) * 1000);
+        const date = fullDate.getUTCDate();
+        const day = app.weekDays[fullDate.getUTCDay()];
+        const month = months[fullDate.getUTCMonth()];
+        const year = fullDate.getUTCFullYear();
 
         document.querySelector('.city-info').textContent = `${country ? country : ''} ${day} ${month} ${date} ${year}`;
     },
@@ -183,3 +184,14 @@ const view = {
     }
 };
 app.init();
+
+function convertUTCDateToLocalDate(date) {
+    var newDate = new Date(date.getTime() + date.getTimezoneOffset() * 60 * 1000);
+
+    var offset = date.getTimezoneOffset() / 60;
+    var hours = date.getHours();
+
+    newDate.setHours(hours - offset);
+
+    return newDate;
+}
