@@ -1,5 +1,5 @@
-const cacheName = 'Weather-App-v6';
-const dynamicCacheName = 'site-dynamic-v6';
+const cacheName = 'Weather-App-v10';
+const dynamicCacheName = 'site-dynamic-v10';
 const filesToCache = [
   'index.html',
   'css/main.css',
@@ -18,7 +18,6 @@ const limitCacheSize = (name, size) => {
 };
 
 self.addEventListener('install', evt => {
-  //console.log('service worker installed');
   evt.waitUntil(
     caches.open(cacheName).then((cache) => {
       console.log('caching shell assets');
@@ -39,18 +38,21 @@ self.addEventListener('activate', evt => {
 });
 
 self.addEventListener('fetch', evt => {
-  evt.respondWith(
-      caches.match(evt.request).then(cacheRes => {
-          return cacheRes || fetch(evt.request).then(fetchRes => {
-            return caches.open(dynamicCacheName).then(cache => {
-              cache.put(evt.request.url, fetchRes.clone());
-              // check cached items size
-              limitCacheSize(dynamicCacheName, 15);
-              return fetchRes;
-            })
-          });
-        }).catch((error) => {
-          console.log(error);
-        })
-    );
+  if (evt.request.url.indexOf('api.openweathermap.org') === -1) {
+    evt.respondWith(
+        caches.match(evt.request).then(cacheRes => {
+            return cacheRes || fetch(evt.request)
+              .then(fetchRes => {
+                return caches.open(dynamicCacheName).then(cache => {
+                  cache.put(evt.request.url, fetchRes.clone());
+                  // check cached items size
+                  limitCacheSize(dynamicCacheName, 15);
+                  return fetchRes;
+                })
+              });
+          }).catch((error) => {
+            console.log(error);
+          })
+      );
+  }
 });

@@ -55,7 +55,6 @@ const app = {
                 info: response.data.weather[0].description,
                 hours: response.data.dt
             });
-            console.log(response.data, response.data.sys.country);
             view.countryInfo(response.data, response.data.sys.country);
         })
         .catch(error => {
