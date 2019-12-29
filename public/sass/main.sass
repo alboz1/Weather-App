@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css?family=Cabin+Condensed:400,700')
+@import 'grid'
+
+//COLORS
+$main: #8653BE
+$main-text: #545556
+$secondary-text: #1b1b1c
+$light-grey: #e0dee2
+
+html
+    height: 100%
+body
+    height: 100%
+    font-family: 'Cabin Condensed', sans-serif
+    background: linear-gradient(180deg, #413890, #A673B6)
+    background-attachment: fixed
+    background-repeat: no-repeat
+
+
+.error
+    padding: 5rem 2rem
+    margin: 0 auto
+    text-align: center
+    display: none
+    color: #ffffff
+  
+.wrapper
+    padding: 3rem 0
+    +mobile
+        padding: 2.5rem 0
+section#search
+    .search-wrapper
+        position: relative
+        width: 100%
+        max-width: 320px
+        +mobile
+            margin: 0 auto
+        input
+            width: 100%
+            height: 36px
+            text-indent: 10px
+            background: rgba(#fff, .2)
+            border: 1px solid rgba(#fff, .5)
+            border-radius: 2px
+            box-shadow: 0 1px 3px rgba(0,0,0,.2)
+            color: #fff
+            outline: none
+            transition: all 0.2s ease-in-out
+            &:focus
+                background: rgba(white, .3)
+            &:focus::placeholder
+                color: white
+            &::placeholder
+                color: rgba(white, .7)
+        .search-icon
+            position: absolute
+            top: 50%
+            right: 0
+            margin-top: -12px
+            background: transparent
+            border-radius: 0 2px 2px 0
+            border: none
+            z-index: 1
+            cursor: pointer
+            outline: none
+            svg
+                stroke: rgba(white, .7)
+                transition: all 0.2s ease-in-out
+            &:hover svg
+                stroke: white
+    .city-info
+        color: rgba(white, .7)
+        font-size: 1.1em
+        font-weight: 400
+    
+    .units-switch
+        width: 52px
+        height: 25px
+        margin-left: 1rem
+        padding: .2rem
+        border: 1px solid $light-grey
+        border-radius: 50px
+        background: rgba(#fff, .2)
+        box-shadow: inset 0 1px 3px rgba(0,0,0,.2)
+        cursor: pointer
+        .switch
+            width: 50%
+            background: #fff
+            border: none
+            border-radius: 50%
+            color: $secondary-text
+            padding: 0
+            font-size: .9em
+            line-height: 25px
+            outline: none
+            transition: transform 0.2s ease-in-out
+            &.switched
+                transform: translateX(100%)
+
+section#weather
+    text-align: center
+    color: white
+    font-size: 5em
+    +mobile
+        font-size: 3.5em
+    @media (max-width: 760px)
+        font-size: 4em
+    .weather-info
+        .city-name
+            margin: 1.5rem 0
+        .deg
+            margin-left: 5rem
+            font-size: .8em
+            color: rgba(white, .7)
+            +mobile
+                margin: 0
+    .weather-icon
+        margin-top: 2.5rem
+        .weather-info-text
+            font-size: .5em
+            color: rgba(white, .7)
+            &:first-letter
+                text-transform: uppercase
+
+section#week-weather
+    color: $secondary-text
+    padding-bottom: 0
+    .week-weather-info
+        display: flex
+        justify-content: center
+        align-items: center
+        flex-wrap: wrap
+        padding: 1.6rem 0
+        border-radius: 2px
+        background: white
+        box-shadow: 0 1px 3px rgba(0,0,0,.2)
+        .day-wrapper
+            border-left: 1px solid $light-grey
+            text-align: center
+            flex: 1 0 auto
+            &:first-child
+                border: none
+            +mobile
+                flex: 0 0 100%
+                border: none
+                border-bottom: 1px solid $light-grey
+                &:first-child
+                    border-bottom: 1px solid $light-grey
+                &:last-child
+                    border: none
+            .week-day
+                font-size: 1.1em
+                font-weight: 700
+                color: $main
+                .deg
+                    font-weight: 400
+                    font-size: .9em
+                    color: $main-text
+            i
+                font-size: 1.5em
+                color: $secondary-text
+                +mobile
+                    font-size: 1.8em
+            p
+                color: $main
