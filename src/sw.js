@@ -1,9 +1,9 @@
-const cacheName = 'Weather-App-v10';
-const dynamicCacheName = 'site-dynamic-v10';
+const cacheName = 'Weather-App-v14';
+const dynamicCacheName = 'site-dynamic-v14';
 const filesToCache = [
   'index.html',
   'css/main.css',
-  'js/index.js'
+  'js/index-min.js'
 ];
 
 // cache size limit function
@@ -38,7 +38,7 @@ self.addEventListener('activate', evt => {
 });
 
 self.addEventListener('fetch', evt => {
-  if (evt.request.url.indexOf('api.openweathermap.org') === -1) {
+  if (evt.request.url.indexOf('/current-weather') === -1 & evt.request.url.indexOf('/forecast-weather') === -1) {
     evt.respondWith(
         caches.match(evt.request).then(cacheRes => {
             return cacheRes || fetch(evt.request)

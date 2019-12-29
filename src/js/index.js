@@ -23,30 +23,16 @@ const app = {
     getCurrentLocationWeather() {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(position => {
-                this.currentWeatherData('https://api.openweathermap.org/data/2.5/weather?',{
-                    lat: position.coords.latitude,
-                    long: position.coords.longitude
-                });
-                this.getWeatherForecast('https://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
-                    lat: position.coords.latitude,
-                    long: position.coords.longitude
-                });
+                this.currentWeatherData(`/current-weather/?${position.coords.latitude},${position.coords.longitude},${this.unit}`);
+                this.getWeatherForecast(`/forecast-weather/?${position.coords.latitude},${position.coords.longitude},${this.unit}`);
             });
         } else {
             console.log('Your browser does not support geolocation');
         }
     },
 
-    currentWeatherData(url, props) {
-        return axios.get(url, {
-            params: {
-                APPID: '0d98ce1dc6f1122e38b37f94c7fd3424',
-                lat: props.lat,
-                lon: props.long,
-                units: this.unit,
-                q: props.name
-            }
-        })
+    currentWeatherData(url) {
+       return axios.get(url)
         .then(response => {
             view.showCurrentWeather({
                 city: response.data.name,
@@ -72,16 +58,8 @@ const app = {
         });
     },
 
-    getWeatherForecast(url, props) {
-        return axios.get(url, {
-            params: {
-                APPID: '0d98ce1dc6f1122e38b37f94c7fd3424',
-                lat: props.lat,
-                lon: props.long,
-                units: this.unit,
-                q: props.name
-            }
-        })
+    getWeatherForecast(url) {
+        return axios.get(url)
         .then(response => {
             view.showForecast({
                 forecasts: response.data.list
@@ -165,12 +143,8 @@ const view = {
 
             const cityName = document.querySelector('#search-field').value;
             if (cityName === '') return;
-            app.currentWeatherData('https://api.openweathermap.org/data/2.5/weather?', {
-                name: cityName
-            });
-            app.getWeatherForecast('https://api.openweathermap.org/data/2.5/forecast/daily?cnt=6', {
-                name: cityName
-            });
+            app.currentWeatherData(`/current-weather/?${app.unit},${cityName}`);
+            app.getWeatherForecast(`/forecast-weather/?${app.unit},${cityName}`);
         });
 
         unitsSwitch.addEventListener('click', function() {
