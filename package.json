@@ -4,7 +4,7 @@
   "description": "Simple app to check the weather for your city",
   "main": "server.js",
   "scripts": {
-    "start": "server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Erd Vuca",
