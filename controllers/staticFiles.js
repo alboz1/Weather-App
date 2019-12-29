@@ -1,5 +1,6 @@
 const path = require('path');
 const fs = require('fs');
+
 module.exports = (req, res) => {
     const filePath = __dirname +'/../public' + (req.url === '/' ? '/index.html' : req.url);
     const fileExtName = path.extname(filePath);

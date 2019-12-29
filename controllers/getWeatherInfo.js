@@ -4,6 +4,7 @@ module.exports = (req, res, key, apiURL) => {
   let url = new URL(apiURL);
   //get params from the request url
   const reqUrlParams = req.url.split('?')[1].split(',');
+  console.log(reqUrlParams);
   let urlParams;
 
   if (reqUrlParams.length === 2) {
@@ -22,7 +23,7 @@ module.exports = (req, res, key, apiURL) => {
     });
   }
   url = url + urlParams.toString();
-  
+
   axios.get(url).then(response => {
       res.writeHead(200, {'Content-Type': 'application/json'});
       res.end(JSON.stringify(response.data));
