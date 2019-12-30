@@ -44,13 +44,11 @@ const app = {
             view.countryInfo(response.data, response.data.sys.country);
         })
         .catch(error => {
-            console.log(error.response);
             const errorEl = document.querySelector('.error');
             document.querySelector('main').style.display = 'none';
             errorEl.style.display = 'block';
             if (!error.response) {
                 errorEl.textContent = 'Please connect to internet';
-                console.log(error);
             }
             if (error.response.status === 404) {
                 errorEl.textContent = 'Sorry, city not found';

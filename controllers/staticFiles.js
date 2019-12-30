@@ -16,7 +16,20 @@ module.exports = (req, res) => {
         case '.png':
             contentType = 'image/png';
             break;
+        case '.ico':
+            contentType = 'text/html';
+            break;
     }
-    res.writeHead(200, { 'Content-Type': contentType });
-    fs.createReadStream(filePath).pipe(res);
+    fs.readFile(filePath, 'utf8', (err) => {
+        if (err) {
+            if (err.code == 'ENOENT') {
+                console.log('not found');
+                res.writeHead(404, {'Content-Type': 'text/plain'});
+                res.end('404 not found');
+            }
+        } else {
+            res.writeHead(200, { 'Content-Type': contentType });
+            fs.createReadStream(filePath).pipe(res);
+        }
+    });
 } 
