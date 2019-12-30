@@ -1,4 +1,4 @@
-const https = require('https');
+const http = require('http');
 require('dotenv').config();
 
 const getWeatherInfo = require('./controllers/getWeatherInfo');
@@ -8,7 +8,7 @@ const API_KEY = process.env.API_KEY;
 const port = process.env.PORT || 3000;
 
 
-const app = https.createServer((req, res) => {
+const app = http.createServer((req, res) => {
     if (req.url.includes('/current-weather')) {
         getWeatherInfo(req, res, API_KEY, 'https://api.openweathermap.org/data/2.5/weather?');
     } else if (req.url.includes('/forecast-weather')) {

@@ -4,7 +4,6 @@ module.exports = (req, res, key, apiURL) => {
   let url = new URL(apiURL);
   //get params from the request url
   const reqUrlParams = req.url.split('?')[1].split(',');
-  console.log(reqUrlParams);
   let urlParams;
 
   if (reqUrlParams.length === 2) {
