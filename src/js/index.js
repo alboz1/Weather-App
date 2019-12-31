@@ -84,6 +84,20 @@ const app = {
         if (hours >= 18 && hours <= 23) {
             return `wi wi-owm-night-${icon}`;
         }
+    },
+
+    convertTemp() {
+        const degEl = document.querySelectorAll('.deg');
+        degEl.forEach(el => {
+            const deg = Number(el.textContent.split(' ')[0]);
+            if (app.celsius) {
+                const celsiusDeg = Math.round((deg - 32) * 5/9);
+                el.textContent = `${celsiusDeg} °C`;
+            } else {
+                const fahrenheitDeg = Math.round((deg * 9/5) + 32);
+                el.textContent = `${fahrenheitDeg} °F`;
+            }
+        })
     }
 };
 
@@ -97,7 +111,7 @@ const view = {
         const description = document.querySelector('.weather-info-text');
 
         city.textContent = options.city;
-        deg.innerHTML = `${Math.round(options.deg)}${app.celsius ? '&deg;C' : '&deg;F'}`;
+        deg.innerHTML = `${Math.round(options.deg)}${app.celsius ? ' &deg;C' : ' &deg;F'}`;
         icon.className = app.nightDayIcons(options.icon, new Date(options.hours * 1000).getHours());
         description.textContent = options.info;
     },
@@ -112,7 +126,7 @@ const view = {
 
             const output = `
             <div class="day-wrapper">
-                <h3 class="week-day">${app.weekDays[day]} <span class="deg">${Math.round(forecast.temp.day)}&deg;C</span></h3>
+                <h3 class="week-day">${app.weekDays[day]} <span class="deg">${Math.round(forecast.temp.day)} &deg;${app.celsius ? 'C' : 'F'}</span></h3>
                 <i class="wi wi-owm-${forecast.weather[0].id}"></i>
                 <p>${forecast.weather[0].main}</p>
             </div>`;
@@ -144,13 +158,14 @@ const view = {
             app.currentWeatherData(`/current-weather/?${app.unit},${cityName}`);
             app.getWeatherForecast(`/forecast-weather/?${app.unit},${cityName}`);
         });
-
+        //switch units celsius between fahrenheit
         unitsSwitch.addEventListener('click', function() {
             const btn = this.querySelector('.switch');
             btn.classList.toggle('switched');
             app.celsius = !app.celsius;
             app.unit = app.celsius ? 'metric' : 'imperial';
             btn.innerHTML = app.celsius ? 'C&deg;' : 'F&deg;';
+            app.convertTemp();
         });
     }
 };

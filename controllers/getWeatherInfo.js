@@ -27,21 +27,7 @@ module.exports = (req, res, key, apiURL) => {
       res.writeHead(200, {'Content-Type': 'application/json'});
       res.end(JSON.stringify(response.data));
   }).catch(error => {
-    let errorType;
-
-    switch(error.response.status) {
-      case 404:
-        errorType = 404;
-        break;
-      case 400:
-        errorType = 400;
-        break;
-      case 500:
-        errorType = 500;
-        break;
-    }
-
-    res.writeHead(errorType, {'Content-Type': 'application/json'});
+    res.writeHead(error.response.status, {'Content-Type': 'application/json'});
     res.end(JSON.stringify(error));
   });
 }

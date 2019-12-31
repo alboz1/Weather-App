@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000;
 
 
 const app = http.createServer((req, res) => {
+    res.writeHead(301, {'Location': 'https://' + req.headers['host'] + req.url});
     if (req.url.includes('/current-weather')) {
         getWeatherInfo(req, res, API_KEY, 'https://api.openweathermap.org/data/2.5/weather?');
     } else if (req.url.includes('/forecast-weather')) {
@@ -17,7 +18,6 @@ const app = http.createServer((req, res) => {
         //serve any file in the public folder
         staticFiles(req, res);
     }
-  
 });
 
 app.listen(port, () => console.log(`Listening to port ${port}`));

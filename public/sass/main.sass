@@ -27,7 +27,7 @@ body
 .wrapper
     padding: 3rem 0
     +mobile
-        padding: 2.5rem 0
+        padding: 1.9rem 0
 section#search
     .search-wrapper
         position: relative
@@ -101,10 +101,11 @@ section#weather
     text-align: center
     color: white
     font-size: 5em
-    +mobile
-        font-size: 3.5em
     @media (max-width: 760px)
         font-size: 4em
+    +mobile
+        font-size: 3.5em
+        padding: 0
     .weather-info
         .city-name
             margin: 1.5rem 0
