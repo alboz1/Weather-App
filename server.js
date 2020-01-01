@@ -1,11 +1,12 @@
 const http = require('http');
+const url = require('url');
 require('dotenv').config();
 
 const getWeatherInfo = require('./controllers/getWeatherInfo');
 const staticFiles = require('./controllers/staticFiles');
 
 const API_KEY = process.env.API_KEY;
-const port = process.env.PORT || 7000;
+const port = process.env.PORT || 3000;
 
 
 const app = http.createServer((req, res) => {
@@ -18,10 +19,8 @@ const app = http.createServer((req, res) => {
         staticFiles(req, res);
     }
     //redirect any http request to https
-    const url = new URL(req.headers['host'] + req.url);
-    if (url.protocol !== 'localhost:') {
-        console.log(url);
-        res.writeHead(301, {'Location': 'https://' + req.headers['host'] + req.url});
+    if (!req.headers['host'].includes('localhost')) {
+        res.writeHead(301, {'Location': url.parse('https://' + req.headers['host'] + req.url)});
         res.end();
     }
 });

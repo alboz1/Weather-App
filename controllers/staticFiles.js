@@ -23,7 +23,6 @@ module.exports = (req, res) => {
     fs.readFile(filePath, 'utf8', (err) => {
         if (err) {
             if (err.code == 'ENOENT') {
-                console.log('not found');
                 res.writeHead(404, {'Content-Type': 'text/plain'});
                 res.end('404 not found');
             }
