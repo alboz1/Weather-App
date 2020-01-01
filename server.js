@@ -20,6 +20,7 @@ const app = http.createServer((req, res) => {
     //redirect any http request to https
     if (!req.headers['host'].includes('localhost')) {
         res.writeHead(301, {'Location': 'https://' + req.headers['host'] + req.url});
+        res.write('https://' + req.headers['host'] + req.url);
         res.end();
     }
 });
