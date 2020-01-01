@@ -27,6 +27,7 @@ module.exports = (req, res, key, apiURL) => {
       res.writeHead(200, {'Content-Type': 'application/json'});
       res.end(JSON.stringify(response.data));
   }).catch(error => {
+    console.log(error.response.status);
     res.writeHead(error.response.status, {'Content-Type': 'application/json'});
     res.end(JSON.stringify(error));
   });

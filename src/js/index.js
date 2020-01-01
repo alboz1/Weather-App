@@ -47,6 +47,7 @@ const app = {
             const errorEl = document.querySelector('.error');
             document.querySelector('main').style.display = 'none';
             errorEl.style.display = 'block';
+
             if (!error.response) {
                 errorEl.textContent = 'Please connect to internet';
             }

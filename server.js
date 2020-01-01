@@ -5,11 +5,10 @@ const getWeatherInfo = require('./controllers/getWeatherInfo');
 const staticFiles = require('./controllers/staticFiles');
 
 const API_KEY = process.env.API_KEY;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 7000;
 
 
 const app = http.createServer((req, res) => {
-    res.writeHead(301, {'Location': 'https://' + req.headers['host'] + req.url});
     if (req.url.includes('/current-weather')) {
         getWeatherInfo(req, res, API_KEY, 'https://api.openweathermap.org/data/2.5/weather?');
     } else if (req.url.includes('/forecast-weather')) {
@@ -17,6 +16,13 @@ const app = http.createServer((req, res) => {
     } else {
         //serve any file in the public folder
         staticFiles(req, res);
+    }
+    //redirect any http request to https
+    const url = new URL(req.headers['host'] + req.url);
+    if (url.protocol !== 'localhost:') {
+        console.log(url);
+        res.writeHead(301, {'Location': 'https://' + req.headers['host'] + req.url});
+        res.end();
     }
 });
 
