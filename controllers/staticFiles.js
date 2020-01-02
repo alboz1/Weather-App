@@ -30,7 +30,7 @@ module.exports = (req, res) => {
                 res.end('404 not found');
             }
         } else {
-            if (req.headers.referer && req.headers.referer.split(':')[0] === 'http' && !req.headers.host.includes('localhost')) {
+            if (req.headers['protocol'] === 'http' && !req.headers.host.includes('localhost')) {
                 res.writeHead(301, {'Location': 'https://' + req.headers.host + req.url});
                 fs.createReadStream(filePath).pipe(res);
             } else {
