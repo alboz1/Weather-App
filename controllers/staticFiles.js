@@ -16,6 +16,9 @@ module.exports = (req, res) => {
         case '.png':
             contentType = 'image/png';
             break;
+        case '.json':
+            contentType = 'application/json';
+            break;
         case '.ico':
             contentType = 'text/html';
             break;
