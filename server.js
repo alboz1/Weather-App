@@ -5,7 +5,7 @@ const getWeatherInfo = require('./controllers/getWeatherInfo');
 const staticFiles = require('./controllers/staticFiles');
 
 const API_KEY = process.env.API_KEY;
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 
 const app = http.createServer((req, res) => {
@@ -18,9 +18,10 @@ const app = http.createServer((req, res) => {
         staticFiles(req, res);
     }
     //redirect any http request to https
-    if (req.headers.referer && req.headers.referer.split(':')[0] === 'http' && !req.headers['host'].includes('localhost')) {
-        res.writeHead(301, {'Location': 'https://' + req.headers['host'] + req.url});
+    if (req.headers.referer && req.headers.referer.split(':')[0] === 'http') {
+        res.writeHead(301, {'Location': 'https://' + req.headers.host + req.url});
     }
+    
 });
 
 app.listen(port, () => console.log(`Listening to port ${port}`));
