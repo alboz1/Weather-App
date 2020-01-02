@@ -26,6 +26,10 @@ module.exports = (req, res, key, apiURL) => {
   axios.get(url).then(response => {
       res.writeHead(200, {'Content-Type': 'application/json'});
       res.end(JSON.stringify(response.data));
+      if (req.headers.referer && req.headers.referer.split(':')[0] === 'http' && !req.headers.host.includes('localhost')) {
+        res.writeHead(301, {'Location': 'https://' + req.headers.host + req.url});
+        res.end();
+      }
   }).catch(error => {
     res.writeHead(error.response.status, {'Content-Type': 'application/json'});
     res.end(JSON.stringify(error));
