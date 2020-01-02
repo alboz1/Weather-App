@@ -29,7 +29,7 @@ module.exports = (req, res) => {
         } else {
             if (req.headers.referer && req.headers.referer.split(':')[0] === 'http' && !req.headers.host.includes('localhost')) {
                 res.writeHead(301, {'Location': 'https://' + req.headers.host + req.url});
-                res.end();
+                fs.createReadStream(filePath).pipe(res);
             } else {
                 res.writeHead(200, { 'Content-Type': contentType });
                 fs.createReadStream(filePath).pipe(res);
