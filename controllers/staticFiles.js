@@ -30,7 +30,7 @@ module.exports = (req, res) => {
                 res.end('404 not found');
             }
         } else {
-            if (req.headers['x-forwarded-proto'] !== 'https') {
+            if (req.headers['x-forwarded-proto'] !== 'https' && process.env.NODE_ENV === 'production') {
                 res.writeHead(301, {'Location': 'https://' + req.headers.host + req.url});
                 fs.createReadStream(filePath).pipe(res);
             } else {
