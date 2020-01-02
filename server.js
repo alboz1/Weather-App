@@ -17,11 +17,6 @@ const app = http.createServer((req, res) => {
         //serve any file in the public folder
         staticFiles(req, res);
     }
-    //redirect any http request to https
-    if (req.headers['X-Forwarded-Proto'] === 'http') {
-        res.writeHead(301, {'Location': 'https://' + req.headers.host + req.url});
-    }
-    
 });
 
 app.listen(port, () => console.log(`Listening to port ${port}`));
