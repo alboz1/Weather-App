@@ -18,7 +18,7 @@ const app = http.createServer((req, res) => {
         staticFiles(req, res);
     }
     //redirect any http request to https
-    if (req.headers.referer && req.headers.referer.split(':')[0] === 'http') {
+    if (req.headers['X-Forwarded-Proto'] === 'http') {
         res.writeHead(301, {'Location': 'https://' + req.headers.host + req.url});
     }
     
