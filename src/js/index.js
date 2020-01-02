@@ -15,7 +15,6 @@ const app = {
               });
             });
         }
-
         this.getCurrentLocationWeather();
         view.eventListeners();
     },
@@ -34,6 +33,7 @@ const app = {
     currentWeatherData(url) {
        return axios.get(url)
         .then(response => {
+            document.querySelector('.spinner').style.display = 'none';
             view.showCurrentWeather({
                 city: response.data.name,
                 deg: response.data.main.temp,
@@ -44,6 +44,7 @@ const app = {
             view.countryInfo(response.data, response.data.sys.country);
         })
         .catch(error => {
+            document.querySelector('.spinner').style.display = 'none';
             const errorEl = document.querySelector('.error');
             document.querySelector('main').style.display = 'none';
             errorEl.style.display = 'block';
@@ -65,6 +66,7 @@ const app = {
             });
         })
         .catch(error => {
+            document.querySelector('.spinner').style.display = 'none';
             console.log(error);
         });
     },

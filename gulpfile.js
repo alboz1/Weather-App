@@ -29,10 +29,4 @@ function watch() {
     return gulp.watch(['src/sass/*.sass', 'src/index.html', 'src/js/*.js'], gulp.series(generateCss, minifyhtml, compress));
 }
 
-function build() {
-    return gulp.src('src/**')
-        .pipe((gulp.dest('public')))
-}
-gulp.task('build', build);
-
 gulp.task('default', gulp.series(generateCss, compress, minifyhtml, watch));
