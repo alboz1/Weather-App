@@ -27,11 +27,12 @@ module.exports = (req, res) => {
                 res.end('404 not found');
             }
         } else {
-            res.writeHead(200, { 'Content-Type': contentType });
-            fs.createReadStream(filePath).pipe(res);
             if (req.headers.referer && req.headers.referer.split(':')[0] === 'http' && !req.headers.host.includes('localhost')) {
                 res.writeHead(301, {'Location': 'https://' + req.headers.host + req.url});
                 res.end();
+            } else {
+                res.writeHead(200, { 'Content-Type': contentType });
+                fs.createReadStream(filePath).pipe(res);
             }
         }
     });
