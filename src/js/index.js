@@ -36,7 +36,8 @@ const app = {
             document.querySelector('.spinner').style.display = 'none';
             view.showCurrentWeather({
                 city: response.data.name,
-                deg: response.data.main.temp,
+                temperature: response.data.main.temp,
+                feelsLike: response.data.main.feels_like,
                 icon: response.data.weather[0].id,
                 info: response.data.weather[0].description,
                 hours: response.data.dt
@@ -61,6 +62,7 @@ const app = {
     getWeatherForecast(url) {
         return axios.get(url)
         .then(response => {
+            document.querySelector('.spinner').style.display = 'none';
             view.showForecast({
                 forecasts: response.data.list
             });
@@ -92,13 +94,13 @@ const app = {
     convertTemp() {
         const degEl = document.querySelectorAll('.deg');
         degEl.forEach(el => {
-            const deg = Number(el.textContent.split(' ')[0]);
+            const deg = Number(el.textContent.includes('Feels') ? el.textContent.split(' ')[2] : el.textContent.split(' ')[0]);
             if (app.celsius) {
                 const celsiusDeg = Math.round((deg - 32) * 5/9);
-                el.textContent = `${celsiusDeg} °C`;
+                el.textContent = el.textContent.includes('Feels') ?`Feels like ${celsiusDeg} °C` : `${celsiusDeg} °C`;
             } else {
                 const fahrenheitDeg = Math.round((deg * 9/5) + 32);
-                el.textContent = `${fahrenheitDeg} °F`;
+                el.textContent = el.textContent.includes('Feels') ?`Feels like ${fahrenheitDeg} °F` : `${fahrenheitDeg} °F`;
             }
         })
     }
@@ -109,12 +111,14 @@ const view = {
         document.querySelector('main').style.display = 'block';
         document.querySelector('.error').style.display = 'none';
         const city = document.querySelector('.city-name');
-        const deg = document.querySelector('.deg');
+        const temperature = document.querySelector('.temperature');
+        const feelsLike = document.querySelector('.feels-like');
         const icon = document.querySelector('.weather-icon i');
         const description = document.querySelector('.weather-info-text');
 
         city.textContent = options.city;
-        deg.innerHTML = `${Math.round(options.deg)}${app.celsius ? ' &deg;C' : ' &deg;F'}`;
+        temperature.textContent = `${Math.round(options.temperature)}${app.celsius ? ' °C' : ' °F'}`;
+        feelsLike.textContent = `Feels like ${Math.round(options.feelsLike)}${app.celsius ? ' °C' : ' °F'}`;
         icon.className = app.nightDayIcons(options.icon, new Date(options.hours * 1000).getHours());
         description.textContent = options.info;
     },
@@ -129,7 +133,11 @@ const view = {
 
             const output = `
             <div class="day-wrapper">
-                <h3 class="week-day">${app.weekDays[day]} <span class="deg">${Math.round(forecast.temp.day)} &deg;${app.celsius ? 'C' : 'F'}</span></h3>
+                <h3 class="week-day">
+                    ${app.weekDays[day]}
+                    <span class="deg">${Math.round(forecast.temp.max)} &deg;${app.celsius ? 'C' : 'F'}</span>
+                    <span class="deg">${Math.round(forecast.temp.min)} &deg;${app.celsius ? 'C' : 'F'}</span>
+                </h3>
                 <i class="wi wi-owm-${forecast.weather[0].id}"></i>
                 <p>${forecast.weather[0].main}</p>
             </div>`;

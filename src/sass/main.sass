@@ -35,7 +35,7 @@ body
     z-index: 2
 
 .wrapper
-    padding: 3rem 0
+    padding: 2rem 0
     +mobile
         padding: 1.9rem 0
 section#search
@@ -110,21 +110,40 @@ section#search
 section#weather
     text-align: center
     color: white
-    font-size: 5em
+    font-size: 4em
     @media (max-width: 760px)
         font-size: 4em
     +mobile
-        font-size: 3.5em
+        font-size: 3.1em
         padding: 0
+    .temp-info
+        display: flex
+        justify-content: space-around
+        align-items: center
+        flex-direction: column
+        .temp-info__temperatures
+            min-width: 82px
+            white-space: nowrap
+            .deg
+                display: block
+                text-align: left
+                margin-bottom: 0.5rem
+                +mobile
+                    margin: 0
+            .temperature
+                font-size: 1em
+                +mobile
+                    font-size: 0.9em
+            .feels-like
+                font-size: 0.3em
+        +mobile
+            flex-direction: row     
     .weather-info
         .city-name
             margin: 1.5rem 0
-        .deg
-            margin-left: 5rem
-            font-size: .8em
-            color: rgba(white, .7)
             +mobile
-                margin: 0
+                font-size: 0.9em
+                text-align: left
     .weather-icon
         margin-top: 2.5rem
         .weather-info-text
@@ -166,7 +185,12 @@ section#week-weather
                 .deg
                     font-weight: 400
                     font-size: .9em
-                    color: $main-text
+                    color: darken($light-grey, 33%)
+                    display: inline-block
+                    min-width: 35px
+                    &:first-child
+                        color: $main-text
+                        margin-left: 0.28rem
             i
                 font-size: 1.5em
                 color: $secondary-text
