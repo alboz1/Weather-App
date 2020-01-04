@@ -164,7 +164,7 @@ const view = {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
 
-            const cityName = document.querySelector('#search-field').value;
+            let cityName = document.querySelector('#search-field').value;
             if (cityName === '') return;
             app.currentWeatherData(`/current-weather/?${app.unit},${cityName}`);
             app.getWeatherForecast(`/forecast-weather/?${app.unit},${cityName}`);

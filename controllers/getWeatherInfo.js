@@ -10,7 +10,7 @@ module.exports = (req, res, key, apiURL) => {
     urlParams = new URLSearchParams({
       APPID:key,
       units: reqUrlParams[0],
-      q: reqUrlParams[1]
+      q: reqUrlParams[1].replace(/%20/g, ' ')
     });
   } else {
     //set the params from the request url to the open weather api url
@@ -21,7 +21,7 @@ module.exports = (req, res, key, apiURL) => {
         units: reqUrlParams[2]
     });
   }
-  url = url + urlParams.toString();
+  url = `${url}${urlParams.toString()}`;
 
   axios.get(url).then(response => {
     res.writeHead(200, {'Content-Type': 'application/json'});
