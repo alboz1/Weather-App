@@ -1,20 +1,18 @@
 const gulp = require('gulp');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 const autoprefixer = require('gulp-autoprefixer');
 const htmlmin = require('gulp-htmlmin');
 const minify = require('gulp-minify');
 
 function generateCss() {
-    return gulp.src('src/sass/main.sass')
+    return gulp.src('src/sass/*.sass')
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-        .pipe(autoprefixer({
-            browsers: ['last 2 versions']
-        }))
+        .pipe(autoprefixer())
         .pipe(gulp.dest('public/css'));
 }
 
 function minifyhtml() {
-    return gulp.src('src/index.html')
+    return gulp.src('src/*.html')
         .pipe(htmlmin({ collapseWhitespace: true }))
         .pipe(gulp.dest('public'));
 }

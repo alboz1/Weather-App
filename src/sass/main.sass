@@ -1,21 +1,12 @@
+@use 'partials/_body'
+@use 'grid'
 @import url('https://fonts.googleapis.com/css?family=Cabin+Condensed:400,700')
-@import 'grid'
 
 //COLORS
 $main: #8653BE
 $main-text: #545556
 $secondary-text: #1b1b1c
 $light-grey: #e0dee2
-
-html
-    height: 100%
-body
-    height: 100%
-    font-family: 'Cabin Condensed', sans-serif
-    background: linear-gradient(180deg, #413890, #A673B6)
-    background-attachment: fixed
-    background-repeat: no-repeat
-
 
 .error
     padding: 5rem 2rem
@@ -36,49 +27,51 @@ body
 
 .wrapper
     padding: 2rem 0
-    +mobile
+    +grid.mobile
         padding: 1.5rem 0
 section#search
     .search-wrapper
         position: relative
         width: 100%
         max-width: 320px
-        +mobile
+        +grid.mobile
             margin: 0 auto
             max-width: 100%
-        input
-            width: 100%
-            padding: 0.8rem 0
-            text-indent: 10px
-            background: rgba(#fff, .2)
-            border: 1px solid rgba(#fff, .5)
+        #search-form
+            display: flex
+            justify-content: space-between
+            align-items: center
+            background: rgba(255,255,255,.2)
+            border: 1px solid rgba(255,255,255,.5)
             border-radius: 2px
-            box-shadow: 0 1px 3px rgba(0,0,0,.2)
-            color: #fff
-            outline: none
+            box-shadow: 0 1px 3px rgb(0 0 0 / 20%)
             transition: all 0.2s ease-in-out
-            &:focus
-                background: rgba(white, .3)
-            &:focus::placeholder
-                color: white
-            &::placeholder
-                color: rgba(white, .7)
-        .search-icon
-            position: absolute
-            top: 50%
-            right: 0
-            margin-top: -12px
-            background: transparent
-            border-radius: 0 2px 2px 0
-            border: none
-            z-index: 1
-            cursor: pointer
-            outline: none
-            svg
-                stroke: rgba(white, .7)
-                transition: all 0.2s ease-in-out
-            &:hover svg
-                stroke: white
+            input
+                background: transparent
+                text-indent: 10px
+                border: none
+                border-right: 1px solid rgba(255,255,255,.5)
+                border-radius: 2px
+                color: #fff
+                padding: 0.9em 0.2em
+                width: 100%
+                outline: none
+                &:focus
+                    background: rgba(white, .3)
+                &:focus::placeholder
+                    color: white
+                &::placeholder
+                    color: rgba(white, .7)
+            .search-icon
+                background: transparent
+                border: none
+                cursor: pointer
+                padding: 0.6em 0.7em
+                svg
+                    stroke: rgba(white, .7)
+                    transition: all 0.2s ease-in-out
+                &:hover svg
+                    stroke: white
     .city-info
         color: rgba(white, .7)
         font-size: 1.1em
@@ -103,7 +96,6 @@ section#search
             padding: 0
             font-size: .9em
             line-height: 25px
-            outline: none
             transition: transform 0.2s ease-in-out
             &.switched
                 transform: translateX(100%)
@@ -114,7 +106,7 @@ section#weather
     font-size: 4em
     @media (max-width: 760px)
         font-size: 4em
-    +mobile
+    +grid.mobile
         font-size: 3.1em
         padding: 0
     .temp-info
@@ -129,21 +121,21 @@ section#weather
                 display: block
                 text-align: left
                 margin-bottom: 0.5rem
-                +mobile
+                +grid.mobile
                     margin: 0
             .temperature
                 font-size: 1em
-                +mobile
+                +grid.mobile
                     font-size: 0.9em
             .feels-like
                 font-size: 0.3em
-        +mobile
+        +grid.mobile
             flex-direction: row
             padding: 0 0.5rem  
     .weather-info
         .city-name
             margin: 1.5rem 0
-            +mobile
+            +grid.mobile
                 font-size: 0.9em
                 text-align: left
     .weather-icon
@@ -172,7 +164,7 @@ section#week-weather
             flex: 1 0 auto
             &:first-child
                 border: none
-            +mobile
+            +grid.mobile
                 flex: 0 0 100%
                 border: none
                 border-bottom: 1px solid $light-grey
@@ -193,7 +185,7 @@ section#week-weather
                     &:first-child
                         color: $main-text
                         margin-left: 0.28rem
-                    +mobile
+                    +grid.mobile
                         display: block
                         min-width: 0
                         margin-top: 0.7rem
@@ -202,7 +194,7 @@ section#week-weather
             i
                 font-size: 1.5em
                 color: $secondary-text
-                +mobile
+                +grid.mobile
                     font-size: 1.8em
             p
                 color: $main

@@ -1,22 +1,9 @@
-const http = require('http');
 require('dotenv').config();
+const http = require('http');
 
-const getWeatherInfo = require('./controllers/getWeatherInfo');
-const staticFiles = require('./controllers/staticFiles');
-
-const API_KEY = process.env.API_KEY;
+const requestListener = require('./utils/requestListener');
 const port = process.env.PORT || 4000;
 
-
-const app = http.createServer((req, res) => {
-    if (req.url.includes('/current-weather')) {
-        getWeatherInfo(req, res, API_KEY, 'https://api.openweathermap.org/data/2.5/weather?');
-    } else if (req.url.includes('/forecast-weather')) {
-        getWeatherInfo(req, res, API_KEY, 'https://api.openweathermap.org/data/2.5/forecast/daily?cnt=6&');
-    } else {
-        //serve any file in the public folder
-        staticFiles(req, res);
-    }
-});
+const app = http.createServer(requestListener);
 
 app.listen(port, () => console.log(`Listening to port ${port}`));

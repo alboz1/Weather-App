@@ -23,21 +23,21 @@ module.exports = (req, res) => {
             contentType = 'text/html';
             break;
     }
-    fs.readFile(filePath, 'utf8', (err) => {
-        if (err) {
-            if (err.code == 'ENOENT') {
-                res.writeHead(404, {'Content-Type': 'text/plain'});
-                res.end('404 not found');
-            }
-        } else {
-            //redirect any http request to https
-            if (req.headers['x-forwarded-proto'] !== 'https' && process.env.NODE_ENV === 'production') {
-                res.writeHead(301, {'Location': 'https://' + req.headers.host + req.url});
-                fs.createReadStream(filePath).pipe(res);
-            } else {
-                res.writeHead(200, { 'Content-Type': contentType });
-                fs.createReadStream(filePath).pipe(res);
-            }
-        }
+
+    const readFile = fs.createReadStream(filePath);
+
+    res.writeHead(200, {
+        'Content-Type': contentType
     });
+
+    readFile.on('error', error => {
+        if (error.code == 'ENOENT') {
+            res.writeHead(404, {'Content-Type': 'text/html'});
+            fs.createReadStream(`${__dirname}/../public/404.html`).pipe(res);
+        } else {
+            res.writeHead(500, {'Content-Type': 'text/plain'});
+            res.end('Something went wrong.');
+        }
+    })
+    .pipe(res);
 } 

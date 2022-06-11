@@ -5,19 +5,20 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon server.js"
   },
   "author": "Erd Vuca",
   "license": "ISC",
   "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^4.0.0",
+    "gulp-autoprefixer": "8.0.0",
     "gulp-htmlmin": "^5.0.1",
     "gulp-minify": "^3.1.0",
-    "gulp-sass": "^3.1.0"
+    "gulp-sass": "5.1.0",
+    "sass": "^1.52.3"
   },
   "dependencies": {
-    "axios": "^0.19.0",
-    "dotenv": "^8.2.0"
+    "axios": "0.27.2",
+    "dotenv": "16.0.1"
   }
 }
