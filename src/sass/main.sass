@@ -10,10 +10,11 @@ $light-grey: #e0dee2
 
 .error
     padding: 5rem 2rem
-    margin: 0 auto
     text-align: center
     display: none
     color: #ffffff
+    font-size: 1.2em
+
 .spinner
     position: fixed
     top: 0
@@ -24,6 +25,15 @@ $light-grey: #e0dee2
     display: flex
     align-items: center
     z-index: 2
+
+.deg
+    position: relative
+    &:after
+        content: '°'
+        display: inline-block
+        position: absolute
+        top: 0
+
 
 .wrapper
     padding: 2rem 0
@@ -107,7 +117,7 @@ section#weather
     @media (max-width: 760px)
         font-size: 4em
     +grid.mobile
-        font-size: 3.1em
+        font-size: 3.5em
         padding: 0
     .temp-info
         display: flex
@@ -115,26 +125,36 @@ section#weather
         align-items: center
         flex-direction: column
         .temp-info__temperatures
-            min-width: 82px
-            white-space: nowrap
+            display: flex
+            justify-content: space-between
+            align-items: center
+            margin: 0.2em 0
+            +grid.mobile
+                flex-direction: column
             .deg
-                display: block
-                text-align: left
-                margin-bottom: 0.5rem
                 +grid.mobile
                     margin: 0
             .temperature
                 font-size: 1em
+                margin: 0
                 +grid.mobile
                     font-size: 0.9em
-            .feels-like
-                font-size: 0.3em
+            .current-weather-info
+                font-size: 0.25em
+                margin-left: 1.2em
+                text-align: left
+                +grid.mobile
+                    margin: 1em 0 0 0
+                    text-align: center
+                p
+                    margin: 0.8em
+                    .high
+                        margin-right: 0.5em
         +grid.mobile
-            flex-direction: row
             padding: 0 0.5rem  
     .weather-info
         .city-name
-            margin: 1.5rem 0
+            margin: 0
             +grid.mobile
                 font-size: 0.9em
                 text-align: left
@@ -181,16 +201,13 @@ section#week-weather
                     font-size: .9em
                     color: darken($light-grey, 33%)
                     display: inline-block
-                    min-width: 35px
+                    margin-left: 0.5em
+                    min-width: 20px
                     &:first-child
                         color: $main-text
-                        margin-left: 0.28rem
                     +grid.mobile
                         display: block
-                        min-width: 0
-                        margin-top: 0.7rem
-                        &:first-child
-                            margin-left: 0
+                        margin: 0.5rem 0 0 0
             i
                 font-size: 1.5em
                 color: $secondary-text

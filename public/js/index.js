@@ -31,7 +31,7 @@ const app = {
                     forecastWeather: `/forecast-weather/?lat=${position.coords.latitude}&lon=${position.coords.longitude}&units=${this.unit}`
                 });
             }, error => {
-                view.showError(error, 'Please enable location in your settings');
+                view.showError(error, 'Please enable location to immediately see your local weather or you can search for it.');
             }, options);
         } else {
             console.log('Your browser does not support geolocation');
@@ -54,6 +54,9 @@ const app = {
                 city: currentWeather.data.name,
                 temperature: currentWeather.data.main.temp,
                 feelsLike: currentWeather.data.main.feels_like,
+                wind: currentWeather.data.wind.speed,
+                temp_max: currentWeather.data.main.temp_max,
+                temp_min: currentWeather.data.main.temp_min,
                 icon: currentWeather.data.weather[0].id,
                 info: currentWeather.data.weather[0].description,
                 hours: currentWeather.data.dt
@@ -90,13 +93,13 @@ const app = {
     convertTemp() {
         const degEl = document.querySelectorAll('.deg');
         degEl.forEach(el => {
-            const deg = Number(el.textContent.includes('Feels') ? el.textContent.split(' ')[2] : el.textContent.split(' ')[0]);
+            const deg = Number(el.textContent);
             if (app.celsius) {
                 const celsiusDeg = Math.round((deg - 32) * 5/9);
-                el.textContent = el.textContent.includes('Feels') ?`Feels like ${celsiusDeg} °C` : `${celsiusDeg} °C`;
+                el.textContent = celsiusDeg;
             } else {
                 const fahrenheitDeg = Math.round((deg * 9/5) + 32);
-                el.textContent = el.textContent.includes('Feels') ?`Feels like ${fahrenheitDeg} °F` : `${fahrenheitDeg} °F`;
+                el.textContent = fahrenheitDeg;
             }
         });
     }
@@ -110,13 +113,19 @@ const view = {
         const city = document.querySelector('.city-name');
         const temperature = document.querySelector('.temperature');
         const feelsLike = document.querySelector('.feels-like');
+        const wind = document.querySelector('.wind');
+        const high = document.querySelector('.high');
+        const low = document.querySelector('.low');
         const icon = document.querySelector('.weather-icon i');
         const description = document.querySelector('.weather-info-text');
         
         info.style.display = 'flex';
         city.textContent = options.city;
-        temperature.textContent = `${Math.round(options.temperature)}${app.celsius ? ' °C' : ' °F'}`;
-        feelsLike.textContent = `Feels like ${Math.round(options.feelsLike)}${app.celsius ? ' °C' : ' °F'}`;
+        temperature.textContent = Math.round(options.temperature);
+        feelsLike.textContent = Math.round(options.feelsLike);
+        wind.textContent = `Wind: ${Math.round(options.wind * 3.6)} km/h`;
+        high.textContent = Math.round(options.temp_max);
+        low.textContent = Math.round(options.temp_min);
         icon.className = app.nightDayIcons(options.icon, new Date(options.hours * 1000).getHours());
         description.textContent = options.info;
     },
@@ -133,8 +142,8 @@ const view = {
             <div class="day-wrapper">
                 <h3 class="week-day">
                     ${app.weekDays[day]}
-                    <span class="deg">${Math.round(forecast.temp.max)} &deg;${app.celsius ? 'C' : 'F'}</span>
-                    <span class="deg">${Math.round(forecast.temp.min)} &deg;${app.celsius ? 'C' : 'F'}</span>
+                    <span class="deg">${Math.round(forecast.temp.max)}</span>
+                    <span class="deg">${Math.round(forecast.temp.min)}</span>
                 </h3>
                 <i class="wi wi-owm-${forecast.weather[0].id}"></i>
                 <p>${forecast.weather[0].main}</p>
