@@ -24,7 +24,25 @@ $light-grey: #e0dee2
     background: #413890
     display: flex
     align-items: center
+    justify-content: center
+    flex-direction: column
     z-index: 2
+    color: #fff
+    font-size: 1.4em
+    h4
+        margin: 0
+    svg
+        +grid.mobile
+            width: 200px
+    .sun
+        transform-origin: 113px 97px
+        animation: animateSun 3s linear infinite
+
+@keyframes animateSun
+    from
+        transform: rotate(0)
+    to
+        transform: rotate(360deg)
 
 .deg
     position: relative
@@ -146,7 +164,7 @@ section#weather
                 +grid.mobile
                     display: flex
                     justify-content: center
-                    align-content: center
+                    align-items: center
                     margin: 1em 0 0 0
                     text-align: center
                 p
