@@ -1,5 +1,5 @@
-const cacheName = 'Weather-App-v16';
-const dynamicCacheName = 'site-dynamic-v16';
+const cacheName = 'Weather-App-v17';
+const dynamicCacheName = 'site-dynamic-v17';
 const filesToCache = [
   'index.html',
   'css/main.css',
